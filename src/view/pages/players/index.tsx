@@ -1,11 +1,15 @@
+import { cn } from "@/app/utils/class-name-merger";
 import { usePeladaStore } from "@/store/pelada/pelada.store";
+import { Button } from "@/view/components/button";
 import { BottomNav } from "@/view/components/button-nav";
 import { ArrowRight, Plus, Trash2, User, X } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export function Players() {
   const { addPlayer, pelada, removePlayer } = usePeladaStore();
+  const navigate = useNavigate();
 
   const [showAddPlayer, setShowAddPlayer] = useState(false);
 
@@ -23,7 +27,7 @@ export function Players() {
   };
 
   const handleContinue = () => {
-    // Sorteio
+    navigate("/draw");
   };
 
   return (
@@ -49,7 +53,7 @@ export function Players() {
         {totalPlayers === 0 && (
           <button
             onClick={() => setShowAddPlayer(true)}
-            className="flex w-full flex-col items-center justify-center rounded-3xl border border-dashed border-zinc-700 bg-zinc-900/50 p-10 text-center transition-all hover:border-emerald-500/40 hover:bg-zinc-900"
+            className="flex w-full flex-col items-center justify-center rounded-3xl border border-zinc-800 bg-zinc-900/50 p-10 text-center transition-all hover:border-emerald-500/40 hover:bg-zinc-900"
           >
             <div className="mb-4 flex size-16 items-center justify-center rounded-full bg-zinc-800">
               <Plus className="size-8 text-zinc-400" />
@@ -175,16 +179,27 @@ export function Players() {
         )}
       </AnimatePresence>
 
+      {totalPlayers < 10 && (
+        <p className="mb-3 text-center text-sm text-zinc-500">
+          Faltam {10 - totalPlayers} jogadores para o sorteio mínimo
+        </p>
+      )}
       {totalPlayers >= 1 && !pelada?.sessionStarted && (
         <div className="fixed right-0 bottom-18 left-0 z-30 p-4">
           <div className="mx-auto max-w-2xl">
-            <button
+            <Button
               onClick={handleContinue}
-              className="flex w-full items-center justify-center gap-2 rounded-2xl bg-emerald-500 py-5 font-semibold text-white transition-all hover:bg-emerald-600 active:scale-[0.98]"
+              disabled={totalPlayers < 10}
+              className={cn(
+                "hover:bg-zinc-800",
+                totalPlayers >= 10
+                  ? `bg-emerald-500 text-white hover:bg-emerald-600 active:scale-[0.98]`
+                  : `cursor-not-allowed bg-zinc-800 text-zinc-500`,
+              )}
             >
               Sortear Times
               <ArrowRight className="size-5" />
-            </button>
+            </Button>
           </div>
         </div>
       )}

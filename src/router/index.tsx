@@ -1,6 +1,7 @@
 import { CreatePelada } from "@/view/pages/create-pelada";
 import { Home } from "@/view/pages/home";
 import { Players } from "@/view/pages/players";
+import { TeamDraw } from "@/view/pages/team-draw";
 import { Welcome } from "@/view/pages/welcome";
 import { createBrowserRouter } from "react-router-dom";
 
@@ -20,5 +21,9 @@ export const router = createBrowserRouter([
   {
     path: "/players",
     Component: Players,
+  },
+  {
+    path: "/draw",
+    Component: TeamDraw,
   },
 ]);
