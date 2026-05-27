@@ -62,7 +62,7 @@ export function CreatePelada() {
                 type="range"
                 min="5"
                 max="15"
-                {...register("matchDuration")}
+                {...register("matchDuration", { valueAsNumber: true })}
                 className="h-2 w-full cursor-pointer appearance-none rounded-lg bg-zinc-800 accent-emerald-500"
               />
               <div className="mt-2 flex justify-between text-xs text-zinc-600">
@@ -84,7 +84,7 @@ export function CreatePelada() {
                 type="range"
                 min="1"
                 max="5"
-                {...register("goalLimit")}
+                {...register("goalLimit", { valueAsNumber: true })}
                 className="h-2 w-full cursor-pointer appearance-none rounded-lg bg-zinc-800 accent-emerald-500"
               />
               <div className="mt-2 flex justify-between text-xs text-zinc-600">
@@ -106,7 +106,7 @@ export function CreatePelada() {
                 type="range"
                 min="1"
                 max="5"
-                {...register("maxConsecutiveWins")}
+                {...register("maxConsecutiveWins", { valueAsNumber: true })}
                 className="h-2 w-full cursor-pointer appearance-none rounded-lg bg-zinc-800 accent-emerald-500"
               />
               <div className="mt-2 flex justify-between text-xs text-zinc-600">
