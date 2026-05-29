@@ -22,7 +22,7 @@ export function useMatch() {
 
       endMatch();
 
-      navigate("/result");
+      navigate("/match/result");
     },
     [endMatch, navigate],
   );

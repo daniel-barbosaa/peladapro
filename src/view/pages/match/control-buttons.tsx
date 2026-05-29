@@ -1,5 +1,6 @@
 import type { Match } from "@/store/pelada/types";
 import { Pause, Play, StopCircle } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 interface ControlButtonProps {
   setIsPaused(value: boolean): void;
@@ -14,6 +15,7 @@ export function ControlButtons({
   isPaused,
   endMatch,
 }: ControlButtonProps) {
+  const navigate = useNavigate();
   return (
     <div className="grid grid-cols-2 gap-3">
       <button
@@ -29,7 +31,7 @@ export function ControlButtons({
         onClick={() => {
           if (confirm("Deseja encerrar a partida agora?")) {
             endMatch();
-            // navigate("/result");
+            navigate("/match/result");
           }
         }}
         className="flex items-center justify-center gap-2 rounded-xl border border-red-700/30 bg-red-900/30 py-4 font-semibold text-red-400 transition-all hover:bg-red-900/50 active:scale-95"
