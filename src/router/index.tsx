@@ -6,6 +6,7 @@ import { Home } from "@/view/pages/home";
 import { Match } from "@/view/pages/match";
 import { MatchResult } from "@/view/pages/match-result";
 import { Players } from "@/view/pages/players";
+import { SignIn } from "@/view/pages/sign-in";
 import { Summaries } from "@/view/pages/summary";
 import { SessionSummary } from "@/view/pages/summary/session";
 import { TeamDraw } from "@/view/pages/team-draw";
@@ -40,6 +41,8 @@ export function Router() {
 
         <Route element={<Summaries />} path={paths.summary} />
         <Route element={<SessionSummary />} path={`${paths.summary}/:id`} />
+
+        <Route element={<SignIn />} path={paths.signIn} />
       </Routes>
     </BrowserRouter>
   );

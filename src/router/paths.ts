@@ -1,4 +1,5 @@
 export const paths = {
+  signIn: "/login",
   welcome: "/",
   home: "/home",
   teams: "/teams",
