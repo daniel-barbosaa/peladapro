@@ -6,6 +6,8 @@ import { Home } from "@/view/pages/home";
 import { Match } from "@/view/pages/match";
 import { MatchResult } from "@/view/pages/match-result";
 import { Players } from "@/view/pages/players";
+import { Summaries } from "@/view/pages/summary";
+import { SessionSummary } from "@/view/pages/summary/session";
 import { TeamDraw } from "@/view/pages/team-draw";
 import { Teams } from "@/view/pages/teams";
 import { Welcome } from "@/view/pages/welcome";
@@ -35,6 +37,9 @@ export function Router() {
 
         <Route element={<Match />} path={paths.match} />
         <Route element={<MatchResult />} path={paths.matchResult} />
+
+        <Route element={<Summaries />} path={paths.summary} />
+        <Route element={<SessionSummary />} path={`${paths.summary}/:id`} />
       </Routes>
     </BrowserRouter>
   );

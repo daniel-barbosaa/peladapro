@@ -8,4 +8,5 @@ export const paths = {
   match: "/match",
   matchResult: "/match/result",
   history: "/history",
+  summary: "/summaries",
 } as const;
