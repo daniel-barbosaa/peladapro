@@ -5,6 +5,8 @@ export const createPeladaSchema = z.object({
   matchDuration: z.number(),
   goalLimit: z.number(),
   maxConsecutiveWins: z.number(),
+  overtimeEnabled: z.boolean(),
+  overtimeDuration: z.number(),
 });
 
 export type CreatePeladaFormSchema = z.infer<typeof createPeladaSchema>;
@@ -14,4 +16,6 @@ export const createPeladaFormDefaultValues: CreatePeladaFormSchema = {
   matchDuration: 7,
   goalLimit: 2,
   maxConsecutiveWins: 2,
+  overtimeEnabled: false,
+  overtimeDuration: 2,
 };

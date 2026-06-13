@@ -1,3 +1,4 @@
+import { cn } from "@/app/utils/class-name-merger";
 import type { Match } from "@/store/pelada/types";
 import { motion } from "motion/react";
 
@@ -7,6 +8,7 @@ interface TimerProps {
   secondsRemaining: number;
   matchDurationInMinutes: number;
   match: Match;
+  isOvertime: boolean;
 }
 
 export function Timer({
@@ -15,6 +17,7 @@ export function Timer({
   secondsRemaining,
   matchDurationInMinutes,
   match,
+  isOvertime,
 }: TimerProps) {
   return (
     <motion.div
@@ -22,10 +25,20 @@ export function Timer({
       animate={{ scale: 1, opacity: 1 }}
       className="mb-8"
     >
-      <div className="relative overflow-hidden rounded-3xl border-2 border-zinc-800 bg-linear-to-br from-zinc-900 to-zinc-950 p-8 text-center">
+      <div
+        className={cn(
+          "relative overflow-hidden rounded-3xl border-2 p-8 text-center",
+          isOvertime
+            ? "border-amber-500/30 bg-linear-to-br from-amber-950/30 to-zinc-950"
+            : "border-zinc-800 bg-linear-to-br from-zinc-900 to-zinc-950",
+        )}
+      >
         <div className="absolute right-0 bottom-0 left-0 h-1 bg-zinc-800">
           <motion.div
-            className="h-full bg-emerald-500"
+            className={cn(
+              "h-full",
+              isOvertime ? "bg-amber-500" : "bg-emerald-500",
+            )}
             initial={{ width: 0 }}
             animate={{ width: `${timeProgress}%` }}
           />
@@ -38,8 +51,16 @@ export function Timer({
           {String(minutesRemaining).padStart(2, "0")}:
           {String(secondsRemaining).padStart(2, "0")}
         </div>
-        <div className="text-sm text-zinc-600">
-          Limite: {matchDurationInMinutes} minutos ou {match.goalLimit} gols
+
+        <div
+          className={cn(
+            "text-sm",
+            isOvertime ? "text-amber-400" : "text-zinc-600",
+          )}
+        >
+          {isOvertime
+            ? "Partida empatada • Tempo extra em andamento"
+            : `Limite: ${matchDurationInMinutes} minutos ou ${match.goalLimit} gols`}
         </div>
       </div>
     </motion.div>

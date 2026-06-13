@@ -3,7 +3,7 @@ import { Pause, Play, StopCircle } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 interface ControlButtonProps {
-  setIsPaused(value: boolean): void;
+  setIsPaused(): void;
   match: Match;
   isPaused: boolean;
   endMatch(): void;
@@ -19,7 +19,7 @@ export function ControlButtons({
   return (
     <div className="grid grid-cols-2 gap-3">
       <button
-        onClick={() => setIsPaused(!isPaused)}
+        onClick={setIsPaused}
         disabled={!match.isActive}
         className="flex items-center justify-center gap-2 rounded-xl bg-zinc-800 py-4 font-semibold text-white transition-all hover:bg-zinc-700 active:scale-95 disabled:bg-zinc-900 disabled:text-zinc-700"
       >

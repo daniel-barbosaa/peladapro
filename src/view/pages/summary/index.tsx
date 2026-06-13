@@ -110,7 +110,6 @@ export function Summaries() {
                     <div>
                       <div className="font-bold text-white">
                         {summary.stats?.goals}
-                        10
                       </div>
                       <div className="text-xs text-zinc-500">gols</div>
                     </div>

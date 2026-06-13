@@ -28,6 +28,9 @@ type Store = {
     sourceTeamId: string,
     playerId: string,
   ): void;
+  pauseMatch(): void;
+  resumeMatch(): void;
+  startOvertime: () => void;
 };
 
 export const usePeladaStore = create<Store>()(
@@ -53,6 +56,9 @@ export const usePeladaStore = create<Store>()(
           duration: pelada.matchDuration * 60,
           goalLimit: pelada.goalLimit,
           isActive: true,
+          isPaused: false,
+          pausedAt: undefined,
+          totalPausedTime: 0,
         };
 
         set({
@@ -62,11 +68,50 @@ export const usePeladaStore = create<Store>()(
           },
         });
       },
+      pauseMatch: () => {
+        set((state) => {
+          if (!state.pelada?.currentMatch) return state;
+
+          state.pelada.currentMatch.isPaused = true;
+          state.pelada.currentMatch.pausedAt = Date.now();
+
+          return state;
+        });
+      },
+      resumeMatch: () =>
+        set((state) => {
+          const match = state.pelada?.currentMatch;
+
+          if (!match?.pausedAt) return state;
+
+          const pausedDuration = Date.now() - match.pausedAt;
+
+          match.totalPausedTime = (match.totalPausedTime ?? 0) + pausedDuration;
+
+          match.pausedAt = undefined;
+          match.isPaused = false;
+
+          return { ...state };
+        }),
+      startOvertime: () =>
+        set((state) => {
+          const match = state.pelada?.currentMatch;
+
+          if (!match || !state.pelada) return state;
+
+          match.isOvertime = true;
+          match.overtimeStartedAt = Date.now();
+          match.overtimeDuration = state.pelada.overtimeDuration * 60;
+
+          return { ...state };
+        }),
       createPelada: ({
         name,
         matchDuration,
         goalLimit,
         maxConsecutiveWins,
+        overtimeEnabled,
+        overtimeDuration,
       }: CreatePeladaDTO) => {
         const newPelada: Pelada = {
           id: uuid(),
@@ -74,6 +119,8 @@ export const usePeladaStore = create<Store>()(
           matchDuration,
           goalLimit,
           maxConsecutiveWins,
+          overtimeEnabled,
+          overtimeDuration,
           createdAt: Date.now(),
           players: [],
           sessionPlayers: [],
@@ -118,7 +165,6 @@ export const usePeladaStore = create<Store>()(
         // embaralhar jogadores
         const shuffled = [...pelada.players].sort(() => Math.random() - 0.5);
 
-        // criar 4 times fixos
         const teams: Team[] = [];
 
         const teamNames = ["Time A", "Time B", "Time C", "Time D"];

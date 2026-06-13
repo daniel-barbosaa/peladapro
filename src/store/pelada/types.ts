@@ -46,6 +46,15 @@ export interface Match {
   teamA: Team;
   teamB: Team;
   startTime: number;
+
+  pausedAt?: number;
+  totalPausedTime?: number;
+  isPaused?: boolean;
+
+  isOvertime?: boolean;
+  overtimeStartedAt?: number;
+  overtimeDuration?: number;
+
   endTime?: number;
   duration: number;
   actualDuration?: number; // Duração atual
@@ -66,6 +75,8 @@ export interface Pelada {
   matchDuration: number;
   goalLimit: number;
   maxConsecutiveWins: number;
+  overtimeEnabled: boolean;
+  overtimeDuration: number;
   createdAt: number;
   players: Player[];
   sessionPlayers: Player[];
@@ -82,4 +93,6 @@ export type CreatePeladaDTO = {
   matchDuration: number;
   goalLimit: number;
   maxConsecutiveWins: number;
+  overtimeEnabled: boolean;
+  overtimeDuration: number;
 };

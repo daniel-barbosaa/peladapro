@@ -1,15 +1,50 @@
 import { usePeladaStore } from "@/store/pelada/pelada.store";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 
 export function useMatch() {
   const navigate = useNavigate();
-  const { pelada, addGoal, removeGoal, endMatch } = usePeladaStore();
-  const [isPaused, setIsPaused] = useState(false);
+
+  const {
+    pelada,
+    addGoal,
+    removeGoal,
+    endMatch,
+    pauseMatch,
+    resumeMatch,
+    startOvertime,
+  } = usePeladaStore();
+
   const match = pelada?.currentMatch;
-  const matchDurationInSeconds = match?.duration ?? 0;
-  const [timeRemaining, setTimeRemaining] = useState(matchDurationInSeconds);
+
+  const isPaused = match?.isPaused ?? false;
+  const isOvertime = match?.isOvertime ?? false;
+
+  const currentDuration = useMemo(() => {
+    if (!match) return 0;
+
+    return isOvertime ? (match.overtimeDuration ?? 0) : match.duration;
+  }, [match, isOvertime]);
+
+  function getRemainingTime() {
+    if (!match) return 0;
+
+    const now = Date.now();
+
+    const totalPausedTime = match.totalPausedTime ?? 0;
+
+    const startTime = isOvertime
+      ? (match.overtimeStartedAt ?? now)
+      : match.startTime;
+
+    const elapsed = Math.floor((now - startTime - totalPausedTime) / 1000);
+
+    return Math.max(0, currentDuration - elapsed);
+  }
+
+  const [timeRemaining, setTimeRemaining] = useState(getRemainingTime());
+
   const hasFinishedMatchRef = useRef(false);
 
   const finishMatch = useCallback(
@@ -27,11 +62,17 @@ export function useMatch() {
     [endMatch, navigate],
   );
 
+  const isDraw = useCallback(() => {
+    if (!match) return false;
+
+    return match.teamA.score === match.teamB.score;
+  }, [match]);
+
   useEffect(() => {
-    setTimeRemaining(matchDurationInSeconds);
-    setIsPaused(false);
+    setTimeRemaining(getRemainingTime());
+
     hasFinishedMatchRef.current = false;
-  }, [match?.id, matchDurationInSeconds]);
+  }, [match?.id, match?.isOvertime]);
 
   useEffect(() => {
     if (!match?.isActive || !pelada) return;
@@ -53,50 +94,82 @@ export function useMatch() {
   ]);
 
   useEffect(() => {
-    if (!match?.isActive || isPaused || matchDurationInSeconds <= 0) return;
+    if (!match?.isActive || isPaused) {
+      return;
+    }
 
     const interval = setInterval(() => {
-      setTimeRemaining((currentTimeRemaining) => {
-        const nextTimeRemaining = Math.max(0, currentTimeRemaining - 1);
+      const remaining = getRemainingTime();
 
-        if (nextTimeRemaining === 0) {
-          clearInterval(interval);
+      setTimeRemaining(remaining);
 
-          finishMatch("Tempo Encerrado!", "⏱️");
+      if (remaining === 0) {
+        clearInterval(interval);
+
+        const shouldStartOvertime =
+          pelada?.overtimeEnabled && !isOvertime && isDraw();
+
+        if (shouldStartOvertime) {
+          startOvertime();
+
+          toast("Empate! Acréscimo iniciado.");
+
+          return;
         }
 
-        return nextTimeRemaining;
-      });
+        finishMatch("Tempo encerrado!", "⏱️");
+      }
     }, 1000);
 
     return () => clearInterval(interval);
-  }, [match?.isActive, isPaused, finishMatch, matchDurationInSeconds]);
+  }, [
+    match?.isActive,
+    isPaused,
+    pelada,
+    isOvertime,
+    isDraw,
+    startOvertime,
+    finishMatch,
+  ]);
 
   const minutesRemaining = Math.floor(timeRemaining / 60);
 
   const secondsRemaining = timeRemaining % 60;
 
-  const matchDurationInMinutes = Math.floor(matchDurationInSeconds / 60);
+  const matchDurationInMinutes = Math.floor(currentDuration / 60);
 
   const timeProgress =
-    matchDurationInSeconds > 0
-      ? ((matchDurationInSeconds - timeRemaining) / matchDurationInSeconds) *
-        100
+    currentDuration > 0
+      ? ((currentDuration - timeRemaining) / currentDuration) * 100
       : 0;
+
+  const togglePause = () => {
+    if (isPaused) {
+      resumeMatch();
+      return;
+    }
+
+    pauseMatch();
+  };
 
   return {
     addGoal,
-    pelada,
-    timeRemaining,
     removeGoal,
+    pelada,
     match,
-    matchDurationInSeconds,
-    setIsPaused,
-    endMatch,
+
     isPaused,
+    isOvertime,
+
+    togglePause,
+
+    endMatch,
+
+    timeRemaining,
     minutesRemaining,
-    matchDurationInMinutes,
     secondsRemaining,
+
+    matchDurationInMinutes,
     timeProgress,
   };
 }

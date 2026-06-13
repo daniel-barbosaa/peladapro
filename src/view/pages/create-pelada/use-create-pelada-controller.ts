@@ -16,6 +16,7 @@ export function useCreatePeladaController() {
     register,
     formState: { errors },
     watch,
+    setValue,
   } = useForm<CreatePeladaFormSchema>({
     resolver: zodResolver(createPeladaSchema),
     defaultValues: createPeladaFormDefaultValues,
@@ -26,5 +27,5 @@ export function useCreatePeladaController() {
     navigate("/players");
   });
 
-  return { handleSubmit, register, errors, watch };
+  return { handleSubmit, register, errors, watch, setValue };
 }

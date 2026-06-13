@@ -6,7 +6,8 @@ import { useCreatePeladaController } from "./use-create-pelada-controller";
 
 export function CreatePelada() {
   const navigate = useNavigate();
-  const { handleSubmit, register, errors, watch } = useCreatePeladaController();
+  const { handleSubmit, register, errors, watch, setValue } =
+    useCreatePeladaController();
 
   return (
     <div className="flex min-h-screen flex-col bg-zinc-950">
@@ -113,6 +114,76 @@ export function CreatePelada() {
                 <span>1 vitória</span>
                 <span>5 vitórias</span>
               </div>
+            </div>
+
+            <div className="rounded-2xl border border-zinc-800 bg-zinc-900 p-5">
+              <div className="mb-4 flex items-start justify-between gap-3">
+                <div>
+                  <div className="flex items-center gap-2">
+                    <label className="text-sm font-medium text-zinc-300">
+                      Acréscimo em Empates
+                    </label>
+
+                    <button
+                      type="button"
+                      title="Se a partida terminar empatada, será adicionado um tempo extra antes do encerramento."
+                      className="text-zinc-500 hover:text-zinc-300"
+                    >
+                      <CircleAlert className="size-4" />
+                    </button>
+                  </div>
+
+                  <p className="mt-1 text-xs text-zinc-500">
+                    Adiciona tempo extra quando houver empate.
+                  </p>
+                </div>
+                <button
+                  type="button"
+                  onClick={() =>
+                    setValue("overtimeEnabled", !watch("overtimeEnabled"))
+                  }
+                  className={cn(
+                    "relative h-7 w-12 rounded-full transition-colors",
+                    watch("overtimeEnabled") ? "bg-emerald-500" : "bg-zinc-700",
+                  )}
+                >
+                  <span
+                    className={cn(
+                      "absolute top-1 left-1 h-5 w-5 rounded-full bg-white transition-transform",
+                      watch("overtimeEnabled") && "translate-x-5",
+                    )}
+                  />
+                </button>
+              </div>
+
+              {watch("overtimeEnabled") && (
+                <div>
+                  <div className="mb-3 flex items-center justify-between">
+                    <label className="text-sm font-medium text-zinc-300">
+                      Tempo de Acréscimo
+                    </label>
+
+                    <span className="text-2xl font-bold text-emerald-400">
+                      {watch("overtimeDuration")} min
+                    </span>
+                  </div>
+
+                  <input
+                    type="range"
+                    min="1"
+                    max="10"
+                    {...register("overtimeDuration", {
+                      valueAsNumber: true,
+                    })}
+                    className="h-2 w-full cursor-pointer appearance-none rounded-lg bg-zinc-800 accent-emerald-500"
+                  />
+
+                  <div className="mt-2 flex justify-between text-xs text-zinc-600">
+                    <span>1 min</span>
+                    <span>10 min</span>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
 

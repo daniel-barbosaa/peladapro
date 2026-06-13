@@ -11,7 +11,6 @@ export function Match() {
   const {
     pelada,
     match,
-    setIsPaused,
     endMatch,
     isPaused,
     addGoal,
@@ -20,6 +19,8 @@ export function Match() {
     minutesRemaining,
     secondsRemaining,
     matchDurationInMinutes,
+    isOvertime,
+    togglePause,
   } = useMatch();
 
   if (!pelada || !match) {
@@ -36,6 +37,7 @@ export function Match() {
           secondsRemaining={secondsRemaining}
           matchDurationInMinutes={matchDurationInMinutes}
           match={match}
+          isOvertime={isOvertime}
         />
         <Score
           match={match}
@@ -46,7 +48,7 @@ export function Match() {
         />
         <QueuePreview match={match} pelada={pelada} />
         <ControlButtons
-          setIsPaused={setIsPaused}
+          setIsPaused={togglePause}
           match={match}
           isPaused={isPaused}
           endMatch={endMatch}
