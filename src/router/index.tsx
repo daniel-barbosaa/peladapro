@@ -5,6 +5,7 @@ import { History } from "@/view/pages/history";
 import { Home } from "@/view/pages/home/home";
 import { Match } from "@/view/pages/match";
 import { MatchResult } from "@/view/pages/match-result";
+import { OrganizeNextMatch } from "@/view/pages/organize";
 import { Players } from "@/view/pages/players";
 import { SignIn } from "@/view/pages/sign-in";
 import { Summaries } from "@/view/pages/summary";
@@ -42,6 +43,8 @@ export function Router() {
 
           <Route element={<Summaries />} path={paths.summary} />
           <Route element={<SessionSummary />} path={`${paths.summary}/:id`} />
+
+          <Route element={<OrganizeNextMatch />} path={paths.organize} />
         </Route>
 
         <Route element={<AuthGuard isPrivate={false} />}>

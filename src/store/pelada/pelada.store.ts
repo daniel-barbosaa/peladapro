@@ -22,7 +22,7 @@ type Store = {
   addGoal(teamId: string): void;
   removeGoal(teamId: string): void;
   endMatch(): void;
-  startNextMatch(): void;
+  startNextMatch(queueOverride?: Team[]): void;
   manualSubstitution(
     targetTeamId: string,
     sourceTeamId: string,
@@ -318,7 +318,7 @@ export const usePeladaStore = create<Store>()(
           };
         });
       },
-      startNextMatch: () => {
+      startNextMatch: (queueOverride) => {
         set((state) => {
           const pelada = state.pelada;
 
@@ -570,11 +570,26 @@ export const usePeladaStore = create<Store>()(
             updatedMatches.push(updatedLastMatch);
           }
 
+          const finalQueue: Team[] = (queueOverride ?? updatedQueue).map(
+            (team, index) => {
+              const status: PlayerStatus =
+                index < 2 ? "playing" : team.isResting ? "resting" : "waiting";
+
+              return {
+                ...team,
+                players: team.players.map((player) => ({
+                  ...player,
+                  status,
+                })),
+              };
+            },
+          );
+
           return {
             ...state,
             pelada: {
               ...pelada,
-              queue: updatedQueue,
+              queue: finalQueue,
               currentMatch: undefined,
               matches: updatedMatches,
             },

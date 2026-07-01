@@ -1,9 +1,12 @@
 import { ArrowRight } from "lucide-react";
 import { motion } from "motion/react";
-interface ActionButtonProps {
-  handleNextMatch(): void;
-}
-export function ActionButton({ handleNextMatch }: ActionButtonProps) {
+import { useNavigate } from "react-router-dom";
+
+export function ActionButton() {
+  const navigate = useNavigate();
+  const handleNextMatch = () => {
+    navigate("/match/organize");
+  };
   return (
     <motion.button
       initial={{ y: 20, opacity: 0 }}
