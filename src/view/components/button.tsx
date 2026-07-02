@@ -2,7 +2,7 @@ import { cn } from "@/app/utils/class-name-merger";
 import { Loader2 } from "lucide-react";
 import type { ComponentProps } from "react";
 interface ButtonProps extends ComponentProps<"button"> {
-  className: string;
+  className?: string;
   isLoading?: boolean;
 }
 export function Button({

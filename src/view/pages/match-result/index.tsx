@@ -10,7 +10,15 @@ export function MatchResult() {
   if (!result) {
     return null;
   }
-  const { pelada, match, winner, isDraw, loser, nextMatch } = result;
+  const {
+    pelada,
+    match,
+    winner,
+    isDraw,
+    loser,
+    nextMatch,
+    handleStartNextMatch,
+  } = result;
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-center bg-zinc-950 p-6">
@@ -27,7 +35,10 @@ export function MatchResult() {
         />
         <QueueStatus pelada={pelada} nextMatch={nextMatch} winner={winner} />
 
-        <ActionButton />
+        <ActionButton
+          isDraw={isDraw}
+          handleStartNextMatch={handleStartNextMatch}
+        />
       </div>
     </div>
   );

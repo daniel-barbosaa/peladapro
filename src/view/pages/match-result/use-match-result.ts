@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 
 export function useMatchResult() {
   const navigate = useNavigate();
-  const { pelada, startNextMatch } = usePeladaStore();
+  const { pelada, startNextMatch, startMatch } = usePeladaStore();
 
   const match =
     pelada?.currentMatch || pelada?.matches[pelada.matches.length - 1];
@@ -116,10 +116,19 @@ export function useMatchResult() {
     return null;
   }
 
-  const handleNextMatch = () => {
+  const handleStartNextMatch = () => {
     startNextMatch();
-    navigate("/home");
+    startMatch();
+    navigate("/match");
   };
 
-  return { pelada, isDraw, winner, match, loser, nextMatch, handleNextMatch };
+  return {
+    pelada,
+    isDraw,
+    winner,
+    match,
+    loser,
+    nextMatch,
+    handleStartNextMatch,
+  };
 }

@@ -1,22 +1,43 @@
-import { ArrowRight } from "lucide-react";
-import { motion } from "motion/react";
+import { Button } from "@/view/components/button";
+import { Play } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
-export function ActionButton() {
+interface ActionButtoProps {
+  isDraw: boolean;
+  handleStartNextMatch(): void;
+}
+
+export function ActionButton({
+  isDraw,
+  handleStartNextMatch,
+}: ActionButtoProps) {
   const navigate = useNavigate();
-  const handleNextMatch = () => {
-    navigate("/match/organize");
-  };
+
+  const primaryButtonClass =
+    "rounded-xl bg-emerald-600 py-4 hover:bg-emerald-500 disabled:cursor-not-allowed disabled:bg-zinc-800 disabled:text-zinc-500";
+
+  if (isDraw) {
+    return (
+      <Button
+        className={primaryButtonClass}
+        onClick={() => navigate("/match/organize")}
+      >
+        Organizar Próxima Rodada
+      </Button>
+    );
+  }
   return (
-    <motion.button
-      initial={{ y: 20, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ delay: 0.5 }}
-      onClick={handleNextMatch}
-      className="flex w-full items-center justify-center gap-2 rounded-2xl bg-emerald-500 py-6 text-lg font-bold text-white shadow-lg shadow-emerald-500/20 transition-all hover:bg-emerald-600 active:scale-95"
-    >
-      Continuar
-      <ArrowRight className="size-6" />
-    </motion.button>
+    <>
+      <Button onClick={handleStartNextMatch} className={primaryButtonClass}>
+        <Play className="size-5" />
+        Iniciar Próxima Partida
+      </Button>
+      <Button
+        className="mt-3 rounded-xl border-zinc-800 bg-transparent py-4 text-zinc-300 hover:border-zinc-700 hover:bg-zinc-900 hover:text-white"
+        onClick={() => navigate("/match/organize")}
+      >
+        Organizar fila
+      </Button>
+    </>
   );
 }

@@ -3,13 +3,16 @@ import { supabase } from "@/app/lib/supabase";
 import { cn } from "@/app/utils/class-name-merger";
 import { usePeladaStore } from "@/store/pelada/pelada.store";
 import {
+  ClipboardList,
   History,
+  House,
   ListOrdered,
   LogOut,
-  Menu,
+  MoreHorizontal,
   Trophy,
   Users,
 } from "lucide-react";
+
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router";
 import { BottomSheet } from "./bottom-sheet";
@@ -51,9 +54,14 @@ export function BottomNav() {
   const navItems = [
     { icon: Trophy, label: "Partida", path: "/match" },
     { icon: Users, label: "Times", path: "/teams" },
+    { icon: House, label: "Início", path: "/home" },
     { icon: ListOrdered, label: "Jogadores", path: "/players" },
-    { icon: History, label: "Histórico", path: "/history" },
-    { icon: Menu, label: "Mais" },
+    { icon: MoreHorizontal, label: "Mais" },
+  ];
+
+  const sheetItems = [
+    { icon: ClipboardList, label: "Resumos", path: "/summaries" },
+    { icon: History, label: "Histórico de partidas", path: "/history" },
   ];
 
   return (
@@ -105,16 +113,19 @@ export function BottomNav() {
           </div>
 
           <div className="space-y-2">
-            <button
-              onClick={() => {
-                setShow(false);
-                navigate("/summaries");
-              }}
-              className="flex w-full items-center gap-3 rounded-2xl border border-zinc-800 bg-zinc-800/50 p-4 text-left text-zinc-200 transition-colors hover:bg-zinc-800"
-            >
-              <History className="size-5 text-emerald-400" />
-              <span className="font-medium">Resumos</span>
-            </button>
+            {sheetItems.map(({ icon: Icon, label, path }) => (
+              <button
+                onClick={() => {
+                  setShow(false);
+                  navigate(path);
+                }}
+                className="flex w-full items-center gap-3 rounded-2xl border border-zinc-800 bg-zinc-800/50 p-4 text-left text-zinc-200 transition-colors hover:bg-zinc-800"
+              >
+                <Icon className="size-5 text-emerald-400" />
+                <span className="font-medium">{label}</span>
+              </button>
+            ))}
+
             <button
               onClick={signOut}
               className="flex w-full items-center gap-3 rounded-2xl border border-red-900/30 bg-red-950/20 p-4 text-left text-red-400 transition-colors hover:bg-red-950/40"

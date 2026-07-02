@@ -174,7 +174,7 @@ function buildDefaultNextQueue(
 export function useOrganize() {
   const navigate = useNavigate();
 
-  const { pelada, startNextMatch } = usePeladaStore();
+  const { pelada, startNextMatch, startMatch } = usePeladaStore();
 
   const lastMatch = pelada?.currentMatch ?? pelada?.matches.at(-1);
 
@@ -231,21 +231,17 @@ export function useOrganize() {
     });
   }
 
-  function handleStartMatch() {
-    if (!canStartMatch) {
-      return;
-    }
-
-    startNextMatch(teams);
-
+  const handleStartNextMatch = () => {
+    startNextMatch();
+    startMatch();
     navigate("/match");
-  }
+  };
 
   return {
     buildDefaultNextQueue,
     isDraw,
     handleDragEnd,
-    handleStartMatch,
+    handleStartNextMatch,
     lastMatch,
     teams,
     canStartMatch,

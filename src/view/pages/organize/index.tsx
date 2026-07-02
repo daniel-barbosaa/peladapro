@@ -3,14 +3,14 @@ import {
   SortableContext,
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
-import { ArrowLeft } from "lucide-react";
 import { SortableTeamCard } from "./sortable-team-card";
 
+import { useCollapsedHeader } from "@/app/hooks/use-collapsed-header";
 import { cn } from "@/app/utils/class-name-merger";
 import { Button } from "@/view/components/button";
+import { TopBar } from "@/view/components/top-bar";
 import { useDroppable } from "@dnd-kit/core";
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Play } from "lucide-react";
 import { useOrganize } from "./use-organize";
 
 interface Props {
@@ -41,45 +41,16 @@ export function OrganizeNextMatch() {
     lastMatch,
     isDraw,
     teams,
-    handleStartMatch,
+    handleStartNextMatch,
     canStartMatch,
   } = useOrganize();
-  const navigate = useNavigate();
-  const [collapsed, setCollapsed] = useState(false);
 
-  useEffect(() => {
-    const onScroll = () => {
-      setCollapsed(window.scrollY > 60);
-    };
-
-    window.addEventListener("scroll", onScroll);
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
+  const { collapsed } = useCollapsedHeader();
   return (
     <DndContext collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
       <div className="min-h-screen bg-zinc-950 pb-28">
         <div className="mx-auto max-w-2xl p-6">
-          <div className="sticky top-0 z-50 bg-zinc-950/80 backdrop-blur">
-            <div className="flex items-center gap-3 py-4">
-              <Button
-                onClick={() => navigate(-1)}
-                aria-label="Voltar"
-                className="size-10 rounded-full border border-zinc-800 bg-zinc-950 hover:border-zinc-700 hover:bg-zinc-900 active:scale-95"
-              >
-                <ArrowLeft className="size-5" />
-              </Button>
-
-              <h1
-                className={cn(
-                  "font-medium text-white transition-all duration-300",
-                  collapsed ? "text-lg" : "scale-95 text-xl opacity-0",
-                )}
-              >
-                Organizar Próxima Rodada
-              </h1>
-            </div>
-          </div>
+          <TopBar title=" Organizar Próxima Rodada" collapsed={collapsed} />
 
           <div className="mb-8">
             <h1
@@ -161,13 +132,14 @@ export function OrganizeNextMatch() {
 
         <div className="fixed right-0 bottom-0 left-0 border-t border-zinc-800 bg-zinc-950/95 p-4 backdrop-blur">
           <div className="mx-auto max-w-2xl">
-            <button
-              onClick={handleStartMatch}
+            <Button
+              onClick={handleStartNextMatch}
               disabled={!canStartMatch}
-              className="flex w-full items-center justify-center gap-2 rounded-xl bg-emerald-600 py-4 font-semibold text-white transition-all hover:bg-emerald-500 disabled:cursor-not-allowed disabled:bg-zinc-800 disabled:text-zinc-500"
+              className="rounded-xl bg-emerald-600 py-4 hover:bg-emerald-500 disabled:cursor-not-allowed disabled:bg-zinc-800 disabled:text-zinc-500"
             >
-              Confirmar
-            </button>
+              <Play className="size-5" />
+              Iniciar Próxima Rodada
+            </Button>
           </div>
         </div>
       </div>

@@ -1,4 +1,3 @@
-import { BottomNav } from "../../components/botton-nav";
 import { ControlButtons } from "./control-buttons";
 import { EmptyMatchState } from "./empty-match-state";
 import { QueuePreview } from "./queue-preview";
@@ -54,8 +53,6 @@ export function Match() {
           endMatch={endMatch}
         />
       </div>
-
-      <BottomNav />
     </div>
   );
 }
