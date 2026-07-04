@@ -1,14 +1,15 @@
 import { useCollapsedHeader } from "@/app/hooks/use-collapsed-header";
 import { cn } from "@/app/utils/class-name-merger";
 import { TopBar } from "@/view/components/top-bar";
+import { Spinner } from "@/view/components/ui/spinner";
 import { Calendar, FileText, Target, Trophy } from "lucide-react";
 import { motion } from "motion/react";
 import { useNavigate } from "react-router";
-import { useSummary } from "./use-summary";
+import { useSummaryController } from "./use-summary-controller";
 
 export function Summaries() {
   const navigate = useNavigate();
-  const { summariesBuilt } = useSummary();
+  const { summariesBuilt, isLoading } = useSummaryController();
   const { collapsed } = useCollapsedHeader();
 
   const formatDate = (dateString: number) => {
@@ -20,11 +21,21 @@ export function Summaries() {
     });
   };
 
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-zinc-950">
+        <div className="mx-auto flex min-h-screen max-w-2xl items-center justify-center">
+          <Spinner size="md" />
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-zinc-950 pb-24">
       <div className="mx-auto max-w-2xl p-6">
         <TopBar collapsed={collapsed} title="Sessões anteriores" />
-        <div>
+        <div className="mb-6">
           <h1
             className={cn(
               "text-2xl font-bold text-white transition-all duration-300",

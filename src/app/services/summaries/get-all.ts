@@ -8,11 +8,17 @@ export interface Summary {
   created_at: string;
 }
 
-export async function getAll() {
+type SummaryResponse = Summary[];
+
+export async function getAll(): Promise<SummaryResponse> {
   const { data, error } = await supabase
     .from("summaries")
     .select("*")
-    .overrideTypes<Summary[]>();
+    .overrideTypes<SummaryResponse>();
 
-  return { data, error };
+  if (error) {
+    throw error;
+  }
+
+  return data ?? [];
 }
