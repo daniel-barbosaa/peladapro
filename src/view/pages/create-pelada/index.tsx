@@ -113,6 +113,16 @@ export function CreatePelada() {
                 {...register("maxConsecutiveWins", { valueAsNumber: true })}
                 className="h-2 w-full cursor-pointer appearance-none rounded-lg bg-zinc-800 accent-emerald-500"
               />
+              <p className="mt-3 text-sm text-zinc-500">
+                O time que vencer{" "}
+                <span className="font-medium text-white">
+                  {watch("maxConsecutiveWins")}
+                </span>{" "}
+                {watch("maxConsecutiveWins") === 1
+                  ? "partida seguida"
+                  : "partidas seguidas"}{" "}
+                deixa a quadra e retorna como o primeiro da fila.
+              </p>
               <div className="mt-2 flex justify-between text-xs text-zinc-600">
                 <span>1 vitória</span>
                 <span>5 vitórias</span>

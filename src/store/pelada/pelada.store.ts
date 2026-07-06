@@ -167,16 +167,22 @@ export const usePeladaStore = create<Store>()(
 
         const teams: Team[] = [];
 
-        const teamNames = ["Time A", "Time B", "Time C", "Time D"];
+        const playersPerTeam = 5;
+        const totalTeams = Math.ceil(shuffled.length / playersPerTeam);
 
-        for (let i = 0; i < 4; i++) {
-          const teamPlayers = shuffled.slice(i * 5, i * 5 + 5);
+        for (let i = 0; i < totalTeams; i++) {
+          const teamPlayers = shuffled.slice(
+            i * playersPerTeam,
+            i * playersPerTeam + playersPerTeam,
+          );
 
-          if (teamPlayers.length === 5) {
+          if (teamPlayers.length > 0) {
+            const teamLetter = String.fromCharCode(65 + i);
+
             teams.push({
-              id: `team-${String.fromCharCode(65 + i)}-${Date.now()}`,
+              id: `team-${teamLetter}-${Date.now()}`,
 
-              name: teamNames[i],
+              name: `Time ${teamLetter}`,
 
               players: teamPlayers.map((player) => ({
                 ...player,
