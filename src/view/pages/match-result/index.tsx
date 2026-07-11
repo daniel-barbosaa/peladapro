@@ -24,34 +24,32 @@ export function MatchResult() {
   const { collapsed } = useCollapsedHeader();
 
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center bg-zinc-950 p-6">
-      <div className="w-full max-w-2xl">
-        <TopBar
-          title={isDraw ? "Empate!" : "Partida Finalizada!"}
-          collapsed={collapsed}
-        />
-        <ResultHeader
-          isDraw={isDraw}
-          winner={winner}
-          pelada={pelada}
-          collapsed={collapsed}
-        />
-        <ScoreDisplay match={match} winner={winner} />
-        <Info
-          isDraw={isDraw}
-          winner={winner}
-          loser={loser}
-          match={match}
-          pelada={pelada}
-          nextMatch={nextMatch}
-        />
-        <QueueStatus pelada={pelada} nextMatch={nextMatch} winner={winner} />
+    <div className="p-6">
+      <TopBar
+        title={isDraw ? "Empate!" : "Partida Finalizada!"}
+        collapsed={collapsed}
+      />
+      <ResultHeader
+        isDraw={isDraw}
+        winner={winner}
+        pelada={pelada}
+        collapsed={collapsed}
+      />
+      <ScoreDisplay match={match} winner={winner} />
+      <Info
+        isDraw={isDraw}
+        winner={winner}
+        loser={loser}
+        match={match}
+        pelada={pelada}
+        nextMatch={nextMatch}
+      />
+      <QueueStatus pelada={pelada} nextMatch={nextMatch} winner={winner} />
 
-        <ActionButton
-          isDraw={isDraw}
-          handleStartNextMatch={handleStartNextMatch}
-        />
-      </div>
+      <ActionButton
+        isDraw={isDraw}
+        handleStartNextMatch={handleStartNextMatch}
+      />
     </div>
   );
 }

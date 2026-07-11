@@ -48,10 +48,10 @@ export function OrganizeNextMatch() {
   const { collapsed } = useCollapsedHeader();
   return (
     <DndContext collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
-      <div className="min-h-screen bg-zinc-950 pb-28">
-        <div className="mx-auto max-w-2xl p-6">
-          <TopBar title=" Organizar Próxima Rodada" collapsed={collapsed} />
+      <>
+        <TopBar title=" Organizar Próxima Rodada" collapsed={collapsed} />
 
+        <div className="p-6">
           <div className="mb-8">
             <h1
               className={cn(
@@ -129,7 +129,6 @@ export function OrganizeNextMatch() {
             </div>
           </SortableContext>
         </div>
-
         <div className="fixed right-0 bottom-0 left-0 border-t border-zinc-800 bg-zinc-950/95 p-4 backdrop-blur">
           <div className="mx-auto max-w-2xl">
             <Button
@@ -142,7 +141,7 @@ export function OrganizeNextMatch() {
             </Button>
           </div>
         </div>
-      </div>
+      </>
     </DndContext>
   );
 }

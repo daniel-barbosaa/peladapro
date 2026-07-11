@@ -36,13 +36,15 @@ export function Router() {
             <Route element={<TeamDraw />} path={paths.draw} />
           </Route>
 
-          <Route element={<Match />} path={paths.match} />
-          <Route element={<MatchResult />} path={paths.matchResult} />
+          <Route element={<AppLayout showBottomNav={false} />}>
+            <Route element={<Match />} path={paths.match} />
+            <Route element={<MatchResult />} path={paths.matchResult} />
 
-          <Route element={<Summaries />} path={paths.summary} />
-          <Route element={<SessionSummary />} path={`${paths.summary}/:id`} />
+            <Route element={<Summaries />} path={paths.summary} />
+            <Route element={<SessionSummary />} path={`${paths.summary}/:id`} />
 
-          <Route element={<OrganizeNextMatch />} path={paths.organize} />
+            <Route element={<OrganizeNextMatch />} path={paths.organize} />
+          </Route>
         </Route>
 
         <Route element={<AuthGuard isPrivate={false} />}>

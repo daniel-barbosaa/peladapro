@@ -27,32 +27,30 @@ export function Match() {
   }
 
   return (
-    <div className="min-h-screen bg-zinc-950 pb-24">
-      <div className="mx-auto max-w-2xl p-6">
-        <TeamReturnedNotice match={match} />
-        <Timer
-          timeProgress={timeProgress}
-          minutesRemaining={minutesRemaining}
-          secondsRemaining={secondsRemaining}
-          matchDurationInMinutes={matchDurationInMinutes}
-          match={match}
-          isOvertime={isOvertime}
-        />
-        <Score
-          match={match}
-          addGoal={addGoal}
-          removeGoal={removeGoal}
-          isPaused={isPaused}
-          pelada={pelada}
-        />
-        <QueuePreview match={match} pelada={pelada} />
-        <ControlButtons
-          setIsPaused={togglePause}
-          match={match}
-          isPaused={isPaused}
-          endMatch={endMatch}
-        />
-      </div>
+    <div className="p-6">
+      <TeamReturnedNotice match={match} />
+      <Timer
+        timeProgress={timeProgress}
+        minutesRemaining={minutesRemaining}
+        secondsRemaining={secondsRemaining}
+        matchDurationInMinutes={matchDurationInMinutes}
+        match={match}
+        isOvertime={isOvertime}
+      />
+      <Score
+        match={match}
+        addGoal={addGoal}
+        removeGoal={removeGoal}
+        isPaused={isPaused}
+        pelada={pelada}
+      />
+      <QueuePreview match={match} pelada={pelada} />
+      <ControlButtons
+        setIsPaused={togglePause}
+        match={match}
+        isPaused={isPaused}
+        endMatch={endMatch}
+      />
     </div>
   );
 }

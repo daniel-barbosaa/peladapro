@@ -32,9 +32,10 @@ export function Summaries() {
   }
 
   return (
-    <div className="min-h-screen bg-zinc-950 pb-24">
-      <div className="mx-auto max-w-2xl p-6">
-        <TopBar collapsed={collapsed} title="Sessões anteriores" />
+    <>
+      <TopBar collapsed={collapsed} title="Sessões anteriores" />
+
+      <div className="px-6">
         <div className="mb-6">
           <h1
             className={cn(
@@ -146,6 +147,6 @@ export function Summaries() {
           </div>
         )}
       </div>
-    </div>
+    </>
   );
 }

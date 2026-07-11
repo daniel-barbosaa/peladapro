@@ -8,7 +8,7 @@ type AppLayoutProps = {
 export function AppLayout({ showBottomNav = true }: AppLayoutProps) {
   return (
     <div className="min-h-screen bg-zinc-950 pb-24">
-      <main className="mx-auto max-w-2xl p-6">
+      <main className="mx-auto max-w-2xl">
         <Outlet />
       </main>
 
