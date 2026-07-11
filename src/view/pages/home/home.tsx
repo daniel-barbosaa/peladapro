@@ -25,7 +25,7 @@ export function Home() {
   };
 
   return (
-    <div className="px-6 py-8">
+    <div className="px-6 pt-[calc(env(safe-area-inset-top)+2rem)] pb-8">
       <div className="mb-6 flex items-center justify-between">
         <p className="text-xs font-medium tracking-wide text-emerald-400">
           VEMPROFUT
