@@ -47,7 +47,7 @@ export function AuthGuard({ isPrivate }: AuthGuardProps) {
   }
 
   if (user && !isPrivate) {
-    return <Navigate to="/home" replace />;
+    return <Navigate to="/" replace />;
   }
 
   return <Outlet />;

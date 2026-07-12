@@ -19,7 +19,7 @@ export function Teams() {
 
   React.useEffect(() => {
     if (!pelada) {
-      navigate("/home");
+      navigate("/");
     }
   }, [pelada, navigate]);
 

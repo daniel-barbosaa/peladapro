@@ -101,7 +101,7 @@ export function useMatchResult() {
 
   useEffect(() => {
     if (!pelada || !match) {
-      navigate("/home");
+      navigate("/");
       return;
     }
     confetti({
@@ -112,7 +112,7 @@ export function useMatchResult() {
   }, [pelada, match, navigate, winner, isDraw, nextMatch]);
 
   if (!pelada || !match) {
-    navigate("/home");
+    navigate("/");
     return null;
   }
 

@@ -12,7 +12,7 @@ export function TeamDraw() {
 
   useEffect(() => {
     if (!pelada) {
-      navigate("/home");
+      navigate("/");
       return;
     }
     if (pelada.queue.length === 0) {

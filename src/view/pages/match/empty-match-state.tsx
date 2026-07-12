@@ -20,7 +20,7 @@ export function EmptyMatchState() {
       return;
     }
 
-    navigate("/home");
+    navigate("/");
   };
 
   return (
