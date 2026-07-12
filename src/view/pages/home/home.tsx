@@ -1,4 +1,5 @@
 import { usePeladaStore } from "@/store/pelada/pelada.store";
+import { Screen } from "@/view/components/screen";
 import { Clock, History, Play, Plus, Trophy, Users } from "lucide-react";
 import { motion } from "motion/react";
 import { useNavigate } from "react-router";
@@ -25,7 +26,7 @@ export function Home() {
   };
 
   return (
-    <div className="px-6 pt-[calc(env(safe-area-inset-top)+2rem)] pb-8">
+    <Screen>
       <div className="mb-6 flex items-center justify-between">
         <p className="text-xs font-medium tracking-wide text-emerald-400">
           VEMPROFUT
@@ -259,6 +260,6 @@ export function Home() {
           </button>
         </motion.div>
       )}
-    </div>
+    </Screen>
   );
 }

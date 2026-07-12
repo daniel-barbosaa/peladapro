@@ -11,10 +11,10 @@ export function CreatePelada() {
   const { collapsed } = useCollapsedHeader();
 
   return (
-    <div className="flex min-h-screen flex-col bg-zinc-950">
-      <div className="mx-auto flex w-full max-w-2xl flex-1 flex-col p-6">
-        <TopBar collapsed={collapsed} title="Nova Pelada" />
+    <>
+      <TopBar collapsed={collapsed} title="Nova Pelada" />
 
+      <div className="p-6">
         <div className="mb-6">
           <h1
             className={cn(
@@ -206,6 +206,6 @@ export function CreatePelada() {
           </Button>
         </form>
       </div>
-    </div>
+    </>
   );
 }

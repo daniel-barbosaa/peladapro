@@ -38,79 +38,77 @@ export function Players() {
   };
 
   return (
-    <div className="min-h-screen bg-zinc-950 pb-36">
-      <div className="mx-auto max-w-2xl p-6">
-        <div className="top-0 mb-8 flex items-center justify-between">
-          <div>
-            <h1 className="mb-1 text-3xl font-bold text-white">Jogadores</h1>
+    <div className="p-6">
+      <div className="top-0 mb-8 flex items-center justify-between">
+        <div>
+          <h1 className="mb-1 text-3xl font-bold text-white">Jogadores</h1>
 
-            <p className="text-zinc-500">{totalPlayers} jogadores</p>
-          </div>
+          <p className="text-zinc-500">{totalPlayers} jogadores</p>
         </div>
+      </div>
 
-        {totalPlayers === 0 && (
-          <button
-            onClick={() => setShow(true)}
-            className="flex w-full flex-col items-center justify-center rounded-3xl border border-zinc-800 bg-zinc-900/50 p-10 text-center transition-all hover:border-emerald-500/40 hover:bg-zinc-900"
-          >
-            <div className="mb-4 flex size-16 items-center justify-center rounded-full bg-zinc-800">
-              <Plus className="size-8 text-zinc-400" />
-            </div>
+      {totalPlayers === 0 && (
+        <button
+          onClick={() => setShow(true)}
+          className="flex w-full flex-col items-center justify-center rounded-3xl border border-zinc-800 bg-zinc-900/50 p-10 text-center transition-all hover:border-emerald-500/40 hover:bg-zinc-900"
+        >
+          <div className="mb-4 flex size-16 items-center justify-center rounded-full bg-zinc-800">
+            <Plus className="size-8 text-zinc-400" />
+          </div>
 
-            <h2 className="mb-2 text-xl font-semibold text-white">
-              Adicionar jogadores
-            </h2>
+          <h2 className="mb-2 text-xl font-semibold text-white">
+            Adicionar jogadores
+          </h2>
 
-            <p className="max-w-xs text-sm text-zinc-500">
-              Comece adicionando os jogadores da pelada para realizar o sorteio
-              dos times.
-            </p>
-          </button>
-        )}
+          <p className="max-w-xs text-sm text-zinc-500">
+            Comece adicionando os jogadores da pelada para realizar o sorteio
+            dos times.
+          </p>
+        </button>
+      )}
 
-        {totalPlayers > 0 && (
-          <div>
-            <h2 className="mb-4 flex items-center gap-2 text-lg font-semibold text-white">
-              <User className="size-5 text-zinc-400" />
+      {totalPlayers > 0 && (
+        <div>
+          <h2 className="mb-4 flex items-center gap-2 text-lg font-semibold text-white">
+            <User className="size-5 text-zinc-400" />
 
-              {`Jogadores de Linha ${totalPlayers}`}
-            </h2>
+            {`Jogadores de Linha ${totalPlayers}`}
+          </h2>
 
-            <div className="space-y-2">
-              {pelada?.players.map((player, index) => (
-                <motion.div
-                  key={player.id}
-                  initial={{ opacity: 0, x: -15 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{
-                    delay: index * 0.04,
-                  }}
-                  className="flex items-center justify-between rounded-2xl border border-zinc-800 bg-zinc-900 p-4"
-                >
-                  <div className="flex items-center gap-3">
-                    <div className="flex size-10 items-center justify-center rounded-full bg-zinc-800">
-                      <span className="font-medium text-zinc-400">
-                        {index + 1}
-                      </span>
-                    </div>
-
-                    <span className="text-lg font-medium text-white">
-                      {player.name}
+          <div className="space-y-2">
+            {pelada?.players.map((player, index) => (
+              <motion.div
+                key={player.id}
+                initial={{ opacity: 0, x: -15 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{
+                  delay: index * 0.04,
+                }}
+                className="flex items-center justify-between rounded-2xl border border-zinc-800 bg-zinc-900 p-4"
+              >
+                <div className="flex items-center gap-3">
+                  <div className="flex size-10 items-center justify-center rounded-full bg-zinc-800">
+                    <span className="font-medium text-zinc-400">
+                      {index + 1}
                     </span>
                   </div>
 
-                  <button
-                    onClick={() => removePlayer(player.id)}
-                    className="rounded-lg p-2 text-red-400 transition-colors hover:bg-zinc-800 hover:text-red-300"
-                  >
-                    <Trash2 className="size-5" />
-                  </button>
-                </motion.div>
-              ))}
-            </div>
+                  <span className="text-lg font-medium text-white">
+                    {player.name}
+                  </span>
+                </div>
+
+                <button
+                  onClick={() => removePlayer(player.id)}
+                  className="rounded-lg p-2 text-red-400 transition-colors hover:bg-zinc-800 hover:text-red-300"
+                >
+                  <Trash2 className="size-5" />
+                </button>
+              </motion.div>
+            ))}
           </div>
-        )}
-      </div>
+        </div>
+      )}
 
       <BottomSheet
         open={show}

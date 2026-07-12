@@ -20,7 +20,7 @@ export function Router() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route element={<AuthGuard isPrivate />}>
+        <Route element={<AuthGuard isPrivate={false} />}>
           <Route element={<AppLayout showBottomNav={false} />}>
             <Route element={<Home />} path={paths.home} />
           </Route>
@@ -28,12 +28,12 @@ export function Router() {
           <Route element={<AppLayout />}>
             <Route element={<Teams />} path={paths.teams} />
             <Route element={<History />} path={paths.history} />
-          </Route>
 
-          <Route element={<MatchInProgressGuard />}>
-            <Route element={<CreatePelada />} path={paths.create} />
-            <Route element={<Players />} path={paths.players} />
-            <Route element={<TeamDraw />} path={paths.draw} />
+            <Route element={<MatchInProgressGuard />}>
+              <Route element={<CreatePelada />} path={paths.create} />
+              <Route element={<Players />} path={paths.players} />
+              <Route element={<TeamDraw />} path={paths.draw} />
+            </Route>
           </Route>
 
           <Route element={<AppLayout showBottomNav={false} />}>

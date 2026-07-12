@@ -1,4 +1,5 @@
 import type { Pelada } from "@/store/pelada/types";
+import { Screen } from "@/view/components/screen";
 import { toPng } from "html-to-image";
 import { Download, Share2 } from "lucide-react";
 import { motion } from "motion/react";
@@ -117,7 +118,7 @@ export function SessionSummary() {
   );
 
   return (
-    <div className="px-6 pt-[calc(env(safe-area-inset-top)+2rem)] pb-8">
+    <Screen>
       <motion.div
         ref={summaryRef}
         initial={{ opacity: 0, scale: 0.95 }}
@@ -306,6 +307,6 @@ export function SessionSummary() {
       </motion.div>
 
       <SummaryActions summaryRef={summaryRef} />
-    </div>
+    </Screen>
   );
 }
