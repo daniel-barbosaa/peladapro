@@ -92,7 +92,7 @@ export function Summaries() {
                     <Trophy className="size-5 text-yellow-400" />
                     <div>
                       <div className="text-xs font-semibold tracking-wide text-yellow-400 uppercase">
-                        Campeão
+                        Melhor time
                       </div>
                       <div className="font-bold text-white">
                         {summary.stats?.champion.name}

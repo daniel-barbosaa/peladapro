@@ -11,4 +11,5 @@ export const paths = {
   summary: "/summaries",
   organize: "/match/organize",
   installApp: "/install",
+  suggestions: "/suggestions",
 } as const;

@@ -159,7 +159,7 @@ export function SessionSummary() {
 
             <div className="relative z-10 text-center">
               <div className="mb-1 text-[10px] font-black tracking-widest text-yellow-400 uppercase">
-                🏆 Campeão
+                🏆 Melhor time
               </div>
 
               <h3 className="mb-2 truncate text-2xl font-black text-white">
@@ -283,7 +283,7 @@ export function SessionSummary() {
                 className="rounded-xl border border-red-800/30 bg-red-900/10 p-2.5"
               >
                 <div className="mb-1 flex items-center gap-1 text-xs font-bold tracking-wide text-red-400 uppercase">
-                  🔦 Lanterna
+                  🔦 Lanterninha
                 </div>
                 <div className="flex items-center justify-between">
                   <div className="text-sm font-bold text-white">
@@ -301,7 +301,7 @@ export function SessionSummary() {
 
         <div className="border-t border-zinc-800 bg-zinc-900/80 p-2.5 text-center backdrop-blur-sm">
           <p className="text-xs font-semibold text-zinc-500">
-            Gerado por PeladaPro
+            Gerado por VemProFut
           </p>
         </div>
       </motion.div>

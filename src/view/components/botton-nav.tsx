@@ -9,6 +9,7 @@ import {
   House,
   ListOrdered,
   LogOut,
+  MessageSquareMore,
   MoreHorizontal,
   Trophy,
   Users,
@@ -68,6 +69,7 @@ export function BottomNav() {
       label: "Instalar aplicativo",
       path: "/install",
     },
+    { icon: MessageSquareMore, label: "Enviar sugestão", path: "/suggestions" },
   ];
 
   return (

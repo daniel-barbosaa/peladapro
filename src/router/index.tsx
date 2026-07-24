@@ -9,6 +9,7 @@ import { MatchResult } from "@/view/pages/match-result";
 import { OrganizeNextMatch } from "@/view/pages/organize";
 import { Players } from "@/view/pages/players";
 import { SignIn } from "@/view/pages/sign-in";
+import { Suggestions } from "@/view/pages/sugestions";
 import { Summaries } from "@/view/pages/summary";
 import { SessionSummary } from "@/view/pages/summary/session";
 import { TeamDraw } from "@/view/pages/team-draw";
@@ -30,6 +31,7 @@ export function Router() {
             <Route element={<Teams />} path={paths.teams} />
             <Route element={<History />} path={paths.history} />
             <Route element={<InstallApp />} path={paths.installApp} />
+            <Route element={<Suggestions />} path={paths.suggestions} />
           </Route>
 
           <Route element={<AppLayout showBottomNav={false} />}>
